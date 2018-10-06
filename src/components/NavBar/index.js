@@ -6,20 +6,25 @@ import {
     Tooltip
 } from '@material-ui/core';
 import {
-    ContactPhoneOutlined,
+    ContactPhone,
     ShareOutlined,
     PersonAdd
 } from '@material-ui/icons';
+import ToggleIcon from 'material-ui-toggle-icon';
 import Spacer from '../Spacer';
+import {MNR_LOGO} from "../../constants";
+import {withStyles} from '@material-ui/core/styles';
+import styles from './jscss';
 
-const NavBar = () =>
-    <AppBar position="fixed">
+const NavBar = ({classes}) =>
+    <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
             <Tooltip title="Info" placement="bottom">
                 <IconButton color="inherit">
-                    <ContactPhoneOutlined />
+                    <ContactPhone />
                 </IconButton>
             </Tooltip>
+            <img src={MNR_LOGO} alt="logo" className={classes.logo}/>
             <Spacer />
             <Tooltip title="Compartilhe sua página" placement="bottom">
                 <IconButton color="inherit">
@@ -35,4 +40,4 @@ const NavBar = () =>
     </AppBar>
 ;
 
-export default NavBar;
+export default withStyles(styles)(NavBar);
