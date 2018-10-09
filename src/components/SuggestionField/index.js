@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames';
 import {TextField , InputAdornment} from '@material-ui/core';
 import {Business, Search} from '@material-ui/icons';
@@ -19,19 +19,45 @@ const InputProps = classes => ({
     )
 });
 
-const SuggestionsField = ({classes, onFocusSuggestionField, onBlurSuggestionsField, onMouseOverSuggestionsField, onMouseLeaveSuggestionsField, focus, hover}) =>
-    <TextField
-        InputProps={InputProps(classes)}
-        className={classNames(
-            classes.textfield,
-            hover && classes['textfield-hover'],
-            focus && classes['textfield-focus']
-        )}
-        onFocus={() => onFocusSuggestionField(true)}
-        onBlur={() => onFocusSuggestionField(false)}
-        onMouseOver={() => onMouseOverSuggestionsField()}
-        onMouseLeave={() => onMouseLeaveSuggestionsField()}
-    />
-;
+export default withStyles(styles)(
+    class SuggestionField extends Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                hover: false,
+                focus: false
+            }
+        }
 
-export default withStyles(styles)(SuggestionsField);
+        handleFocus = () =>
+            this.setState({ focus: true });
+
+        handleBlur = () =>
+            this.setState({ focus: false});
+
+        handleMouseOver = () =>
+            this.setState({ hover: true});
+
+        handleMouseLeave = () =>
+            this.setState({ hover: false});
+
+        render() {
+            const { classes } = this.props;
+            const { hover, focus } = this.state;
+            return (
+                <TextField
+                    InputProps={InputProps(classes)}
+                    className={classNames(
+                        classes.textfield,
+                        hover && classes['textfield-hover'],
+                        focus && classes['textfield-focus']
+                    )}
+                    onFocus={() => this.handleFocus()}
+                    onBlur={() => this.handleBlur()}
+                    onMouseOver={() => this.handleMouseOver()}
+                    onMouseLeave={() => this.handleMouseLeave()}
+                />
+            )
+        }
+    }
+);
