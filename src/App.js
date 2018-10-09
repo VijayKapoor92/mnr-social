@@ -15,18 +15,6 @@ class App extends Component {
     handleIconOnOff = () =>
         this.setState({iconInfoOn: !this.state.iconInfoOn});
 
-    handleFocusSuggestionField = focus =>
-        this.setState({focusSuggestionsField: focus});
-
-    /*handleBlurSuggestionsField = blur =>
-        this.setState({blurSuggestionsField: blur});*/
-
-    handleMouseLeaveSuggestionsField = () =>
-        this.setState({hoverSuggestionsField: false});
-
-    handleMouseOverSuggestionsField = () =>
-        this.setState({hoverSuggestionsField: true});
-
     render() {
         const { iconInfoOn, focusSuggestionsField, hoverSuggestionsField } = this.state;
 
