@@ -13,8 +13,6 @@ export default ({
     'textfield-focus': {
         backgroundColor: 'rgba(900, 900, 900, 1)'
     },
-    'icon-white': {
-        color: 'white'
     },
     'icon-default': {
         color: grey[500]
