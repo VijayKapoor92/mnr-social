@@ -5,10 +5,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            iconInfoOn: false,
-            focusSuggestionsField: false,
-            hoverSuggestionsField: false,
-            blurSuggestionsField: false
+            iconInfoOn: false
         }
     }
 
@@ -16,18 +13,12 @@ class App extends Component {
         this.setState({iconInfoOn: !this.state.iconInfoOn});
 
     render() {
-        const { iconInfoOn, focusSuggestionsField, hoverSuggestionsField } = this.state;
+        const { iconInfoOn } = this.state;
 
         return (
             <NavBar
                 onChangeIcon={this.handleIconOnOff}
                 iconInfoOn={iconInfoOn}
-                onFocusSuggestionField={this.handleFocusSuggestionField}
-                onBlurSuggestionsField={this.handleFocusSuggestionField}
-                focusSuggestionsField={focusSuggestionsField}
-                onMouseOverSuggestionsField={this.handleMouseOverSuggestionsField}
-                onMouseLeaveSuggestionsField={this.handleMouseLeaveSuggestionsField}
-                hoverSuggestionsField={hoverSuggestionsField}
             />
         )
     }
