@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import {TextField , InputAdornment} from '@material-ui/core';
-import {Business, Search} from '@material-ui/icons';
+import {TextField , InputAdornment, CircularProgress} from '@material-ui/core';
+import Business from '@material-ui/icons/Business';
 import styles from './jscss';
 import {withStyles} from '@material-ui/core/styles';
 
-const InputProps = classes => ({
-    disableUnderline: true,
-    startAdornment: (
-        <InputAdornment position="start">
-            <Business className={classes['icon-default']}/>
-        </InputAdornment>
-    ),
-    endAdornment: (
-        <InputAdornment position="end">
-            <Search className={classes['icon-default']}/>
-        </InputAdornment>
-    )
-});
+import Suggestions from '../Suggestions';
 
 export default withStyles(styles)(
     class SuggestionField extends Component {
@@ -25,7 +13,9 @@ export default withStyles(styles)(
             super(props);
             this.state = {
                 hover: false,
-                focus: false
+                focus: false,
+                typing: false,
+                query: ''
             }
         }
 
@@ -41,22 +31,55 @@ export default withStyles(styles)(
         handleMouseLeave = () =>
             this.setState({ hover: false});
 
+        handleChange = e => {
+            if (e.target.value.length === 0) {
+                this.setState({
+                    query: e.target.value,
+                    typing: false
+                });
+                return;
+            }
+
+            this.setState({
+                query: e.target.value,
+                typing: true
+            });
+        };
+
         render() {
             const { classes } = this.props;
-            const { hover, focus } = this.state;
+            const { hover, focus, typing, query } = this.state;
+            const InputProps = {
+                disableUnderline: true,
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <Business className={classNames(classes.icon, !typing && classes['icon-default'], typing && classes['icon-dark-grey'])}/>
+                    </InputAdornment>
+                ),
+                endAdornment: (
+                    <InputAdornment position="end" className={classNames(classes['loader-out'], typing && classes['loader-in'])}>
+                        <CircularProgress className={classes['icon-default']} size={20}/>
+                    </InputAdornment>
+                )
+            };
             return (
-                <TextField
-                    InputProps={InputProps(classes)}
-                    className={classNames(
-                        classes.textfield,
-                        hover && classes['textfield-hover'],
-                        focus && classes['textfield-focus']
-                    )}
-                    onFocus={() => this.handleFocus()}
-                    onBlur={() => this.handleBlur()}
-                    onMouseOver={() => this.handleMouseOver()}
-                    onMouseLeave={() => this.handleMouseLeave()}
-                />
+                <div className={classes.root}>
+                    <TextField
+                        InputProps={InputProps}
+                        className={classNames(
+                            classes.textfield,
+                            hover && classes['textfield-hover'],
+                            focus && classes['textfield-focus']
+                        )}
+                        placeholder="Procure por empresas..."
+                        onFocus={this.handleFocus}
+                        onBlur={this.handleBlur}
+                        onMouseOver={this.handleMouseOver}
+                        onMouseLeave={this.handleMouseLeave}
+                        onChange={this.handleChange}
+                    />
+                    <Suggestions query={query} />
+                </div>
             )
         }
     }
