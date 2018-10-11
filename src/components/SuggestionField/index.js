@@ -5,6 +5,7 @@ import Business from '@material-ui/icons/Business';
 import styles from './jscss';
 import {withStyles} from '@material-ui/core/styles';
 
+import {suggestions} from '../../utils/suggestions';
 import Suggestions from '../Suggestions';
 
 export default withStyles(styles)(
@@ -15,7 +16,8 @@ export default withStyles(styles)(
                 hover: false,
                 focus: false,
                 typing: false,
-                query: ''
+                query: '',
+                suggestions: []
             }
         }
 
@@ -23,7 +25,10 @@ export default withStyles(styles)(
             this.setState({ focus: true });
 
         handleBlur = () =>
-            this.setState({ focus: false});
+            this.setState({
+                focus: false,
+                typing: false
+            });
 
         handleMouseOver = () =>
             this.setState({ hover: true});
@@ -44,11 +49,19 @@ export default withStyles(styles)(
                 query: e.target.value,
                 typing: true
             });
+
+            if (e.target.value.length > 0)
+                this.getSuggestions();
         };
+
+        getSuggestions = () =>
+            setTimeout(() =>
+                this.setState({ suggestions: suggestions})
+            , 1000);
 
         render() {
             const { classes } = this.props;
-            const { hover, focus, typing, query } = this.state;
+            const { hover, focus, typing, query, suggestions } = this.state;
             const InputProps = {
                 disableUnderline: true,
                 startAdornment: (
@@ -78,7 +91,11 @@ export default withStyles(styles)(
                         onMouseLeave={this.handleMouseLeave}
                         onChange={this.handleChange}
                     />
-                    <Suggestions query={query} />
+                    <Suggestions
+                        query={query}
+                        focus={focus}
+                        suggestions={suggestions}
+                    />
                 </div>
             )
         }
