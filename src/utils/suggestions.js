@@ -18,5 +18,5 @@ export const suggestions = [
     {id: 17, primary: 'MERCADO NA REDE LTDA.', secondary: 'DF - Mercado na Rede Ltda.'},
     {id: 18, primary: 'MERCADO NA REDE LTDA.', secondary: 'DF - Mercado na Rede Ltda.'},
     {id: 19, primary: 'MERCADO NA REDE LTDA.', secondary: 'DF - Mercado na Rede Ltda.'},
-    {id: 10, primary: 'MERCADO NA REDE LTDA.', secondary: 'DF - Mercado na Rede Ltda.'},
+    {id: 20, primary: 'MERCADO NA REDE LTDA.', secondary: 'DF - Mercado na Rede Ltda.'},
 ];
