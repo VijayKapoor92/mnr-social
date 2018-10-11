@@ -1,22 +1,22 @@
+import {grey} from '@material-ui/core/colors';
 export default ({
     'suggestions-container': {
         position: 'absolute',
         top: 50,
         left: 35,
         right: 0,
-        height: 0,
+        height: 'auto',
         maxHeight: 300,
         overflow: 'hidden',
-        overflowY: 'auto',
-        transition: 'height 250ms'
-    },
-    'suggestions-container-opened': {
-        height: 'auto'
+        overflowY: 'auto'
     },
     list: {
-        height: 0
+        opacity: 1
     },
-    'list-visible': {
-        height: 'auto'
+    listItem: {
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: grey[300],
+        }
     }
 });
