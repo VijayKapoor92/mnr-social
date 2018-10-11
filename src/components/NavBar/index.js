@@ -13,6 +13,11 @@ import {
 } from '@material-ui/icons';
 import SuggestionsField from '../SuggestionField';
 import {MNR_NO_LOGO} from "../../constants";
+import {
+    MNR_CADASTRO_COMPRADOR_CONCESSIONARIAS,
+    MNR_CADASTRO_COMPRADOR_EMPRESAS, MNR_CADASTRO_FORNECEDOR, MNR_LOGO,
+    MNR_NO_LOGO
+} from "../../utils/constants";
 import {withStyles} from '@material-ui/core/styles';
 import styles from './jscss';
 
