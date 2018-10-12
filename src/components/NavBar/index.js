@@ -18,6 +18,8 @@ import {
     Send
 } from '@material-ui/icons';
 import SuggestionsField from '../SuggestionField';
+import PopoverShare from '../PopoverShare';
+import PopoverSignUp from '../PopoverSignUp';
 import {
     MNR_CADASTRO_COMPRADOR_CONCESSIONARIAS,
     MNR_CADASTRO_COMPRADOR_EMPRESAS, MNR_CADASTRO_FORNECEDOR, MNR_LOGO,
@@ -34,39 +36,39 @@ import styles from './jscss';
 export default withStyles(styles)(
     class NavBar extends Component {
         state = {
-            anchorElCadastro: null,
-            anchorElCompartilhar: null
+            anchorElSignUp: null,
+            anchorElShare: null
         };
 
-        handleOpenPopoverCadastro = event => {
+        handleOpenPopoverSignUp = event => {
             this.setState({
-                anchorElCadastro: event.currentTarget,
+                anchorElSignUp: event.currentTarget,
             });
         };
 
-        handleOpenPopoverCompartilhar = event => {
+        handleOpenPopoverShare = event => {
             this.setState({
-                anchorElCompartilhar: event.currentTarget,
+                anchorElShare: event.currentTarget
             });
         };
 
-        handleClosePopoverCadastro = () => {
+        handleClosePopoverSignUp = () => {
             this.setState({
-                anchorElCadastro: null,
+                anchorElSignUp: null,
             });
         };
 
-        handleClosePopoverCompartilhar = () => {
+        handleClosePopoverShare = () => {
             this.setState({
-                anchorElCompartilhar: null,
+                anchorElShare: null
             });
         };
 
         render() {
             const { classes } = this.props;
-            const { anchorElCadastro, anchorElCompartilhar } = this.state;
-            const openPopoverCadastro = Boolean(anchorElCadastro);
-            const openPopoverCompartilhar = Boolean(anchorElCompartilhar);
+            const { anchorElSignUp, anchorElShare } = this.state;
+            const openPopoverSignUp = Boolean(anchorElSignUp);
+            const openPopoverShare = Boolean(anchorElShare);
 
             return (
                 <Fragment>
@@ -86,9 +88,9 @@ export default withStyles(styles)(
                                 <Tooltip title="Compartilhe sua página" placement="bottom">
                                     <IconButton
                                         color="inherit"
-                                        aria-owns={openPopoverCompartilhar ? 'simple-popper-compartilhar' : null}
+                                        aria-owns={openPopoverShare ? 'simple-popper-compartilhar' : null}
                                         aria-haspopup="true"
-                                        onClick={this.handleOpenPopoverCompartilhar}
+                                        onClick={this.handleOpenPopoverShare}
                                     >
                                         <ShareOutlined/>
                                     </IconButton>
@@ -96,9 +98,9 @@ export default withStyles(styles)(
                                 <Tooltip title="Cadastre-se" placement="bottom">
                                     <IconButton
                                         color="inherit"
-                                        aria-owns={openPopoverCadastro ? 'simple-popper-cadastro' : null}
+                                        aria-owns={openPopoverSignUp ? 'simple-popper-cadastro' : null}
                                         aria-haspopup="true"
-                                        onClick={this.handleOpenPopoverCadastro}
+                                        onClick={this.handleOpenPopoverSignUp}
                                     >
                                         <PersonAdd/>
                                     </IconButton>
@@ -106,87 +108,17 @@ export default withStyles(styles)(
                             </div>
                         </Toolbar>
                     </AppBar>
-                    <Popover
-                        id="simple-popper-compartilhado"
-                        open={openPopoverCompartilhar}
-                        anchorEl={anchorElCompartilhar}
-                        onClose={this.handleClosePopoverCompartilhar}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                        classes={{
-                            paper: classes.paper
-                        }}
-                    >
-                        <Typography variant="title">Compartilhe seu perfil</Typography>
-                        <Typography variant="caption" style={{marginTop: 10}}>
-                            Compartilhe sua página com seus contatos, é fácil. Confirme se o link abaixo está correto e clique em <strong>Compartilhar</strong> e pronto! Depois é só compartilhar com quem quiser!
-                        </Typography>
-                        <Typography variant="caption" style={{marginTop: 10}}>
-                            www.mercadonarede.com.br/empresa/
-                        </Typography>
-                        <Typography component="div" style={{marginTop: 5}}>
-                            <TextField
-                                className={classes.textfield}
-                                InputProps={{
-                                    disableUnderline: true,
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Language/>
-                                        </InputAdornment>
-                                    ),
-                                    inputProps: {
-                                        className: classes.input
-                                    }
-                                }}
-                                value="MERCADO-NA-REDE-DF"
-                            />
-                        </Typography>
-                        <Typography component="div" style={{marginTop: 30, display: 'flex', justifyContent: 'flex-end'}}>
-                            <Button variant="outlined" size="small" className={classes.button}>
-                                Compartilhar
-                                <Send className={classes.rightIcon} />
-                            </Button>
-                        </Typography>
-                    </Popover>
-                    <Popover
-                        id="simple-popper-cadastro"
-                        open={openPopoverCadastro}
-                        anchorEl={anchorElCadastro}
-                        onClose={this.handleClosePopoverCadastro}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                        classes={{
-                            paper: classes.paperCadastro
-                        }}
-                    >
-                        <Typography variant="title">Cadastro</Typography>
-                        <Typography variant="caption" style={{marginTop: 10}}>
-                            Escolha o que deseja fazer no Mercado na Rede: caso o seu interesse maior é de vender então escolha a opção “Fornecedor”, vale ressaltar que como fornecedor a sua empresa também poderá realizar compras. Caso contrário, se a sua empresa tem interesse em somente comprar então escolha uma das opções de compradores aquele que adequa ao perfil da sua empresa:
-                        </Typography>
-                        <Typography component="div" style={{marginTop: 30, height: 150, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignContent: 'stretch'}}>
-                            <Button variant="outlined" size="small" href={MNR_CADASTRO_COMPRADOR_EMPRESAS} className={classNames(classes.button, classes.smallLabel)}>
-                                Comprador (Empresas de transporte, frotistas e similares)
-                            </Button>
-                            <Button variant="outlined" size="small" href={MNR_CADASTRO_COMPRADOR_CONCESSIONARIAS} className={classNames(classes.button, classes.smallLabel)}>
-                                Comprador (Concessionárias, lojas e distribuidores de autopeças)
-                            </Button>
-                            <Button variant="outlined" size="small" href={MNR_CADASTRO_FORNECEDOR} className={classNames(classes.button, classes.smallLabel)}>
-                                Fornecedor
-                            </Button>
-                        </Typography>
-                    </Popover>
+                    <PopoverShare
+                        open={openPopoverShare}
+                        anchorEl={anchorElShare}
+                        onClose={this.handleClosePopoverShare}
+                        inputValue={"MERCADO-NA-REDE-DF"}
+                    />
+                    <PopoverSignUp
+                        open={openPopoverSignUp}
+                        anchorEl={anchorElSignUp}
+                        onClose={this.handleClosePopoverSignUp}
+                    />
                 </Fragment>
             )
         }
